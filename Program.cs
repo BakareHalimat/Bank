@@ -7,43 +7,96 @@ namespace ClassesandObject
     {
         static void Main(string[] args)
         {
-            Customer ("Bakare Barakat", 987657654, 08026545677, 13, false, 12345678, "Savings");
+            Customer ();
             Console.WriteLine("");
-            Customer ("Olajumoke Ikeoluwa", 987654086, 08024345875, 21, true, 12332178, "Current");
+            Customer ();
             Console.WriteLine("");
-            Customer ("Banjo Museedat", 987657801, 08024345089, 43, false, 12398778, "Savings");
+            Customer ();
             Console.WriteLine("");
-            Customer ("Adeleke Richard", 543654321, 08090876677, 11, true, 123765678, "Current");
+            Customer ();
             Console.WriteLine("");
-            Customer ("Bakare Mujeeb", 876583261, 08024376677, 17, false, 167345690, "Current");
+            Customer ();
         }
-        public static void Customer (string accountname, long bvn, long phonenumber, int age, bool accdelete, long accnumber, string acctype)
+            public static void Customer ()
         {
-            Bank Halimat = new Bank();
-                {
-                    Halimat.AccountName = accountname;
-                    Halimat.BVN  = bvn;
-                    Halimat.PhoneNumber = phonenumber;
-                    Halimat.Age = age; 
-                
-                    AccountDetails Accdetails = new AccountDetails();
+            try
+            {
+                Bank Halimat = new Bank();
                     {
-                        Random rnd = new Random();
-                        Accdetails.Accountdeleted = accdelete;
-                        Accdetails.AccountNumber = accnumber;
-                        Accdetails.AccountType = acctype;
-                        Accdetails.AmountInAccount = rnd.Next(2000, 1000000);
+                        Console.Write("Enter your full name: ");
+                        Halimat.AccountName = Console.ReadLine();
+                        Console.Write("Enter your BVN number: ");
+                        Halimat.BVN = long.Parse(Console.ReadLine());
+                        Console.Write("Enter your phone number: ");
+                        Halimat.PhoneNumber = long.Parse(Console.ReadLine());
+                        Console.Write("Enter your age: ");
+                        Halimat.Age = int.Parse(Console.ReadLine()); 
+                    
+                        AccountDetails Accdetails = new AccountDetails();
+                        {
+                            Random rnd = new Random();
+                            Accdetails.AccountNumber = rnd.Next(12345678, 98765432);
+                            Console.WriteLine("There are two type of account. A savings and Current");
+                            Console.Write("What type of account would you like to open: ");
+                            Accdetails.AccountType = Console.ReadLine();
+                            Console.Write("Enter amount,minimum: $2,000 and Maximum: $1,000,000: ");
+                            Accdetails.AmountInAccount = long.Parse(Console.ReadLine());
+                            Console.Write("Do you want to delete this account: ");
+                            Accdetails.Accountdeleted = Console.ReadLine();
+                            
+                        }
+                        Halimat.AccDetails.Add(Accdetails);
+                        if(Accdetails.AccountType != "Current" || Accdetails.AccountType != "Savings" )
+                        {
+                            Accdetails.AccountType = "Account type can only be Current or Savings";
+
+                        }
+                        else if (Accdetails.AccountType == "Current" || Accdetails.AccountType == "Savings")
+                        {
+                            Console.WriteLine("");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Wrong input");
+                        }
+                        if (Accdetails.AmountInAccount <= 2000 ||Accdetails.AmountInAccount >= 1000000 )
+                        {
+                            Accdetails.AmountInAccount = 0;
+                            Console.WriteLine("");
+                            Console.WriteLine("Amount is either below $2,000 or higher than $1,000,000, So you wont be able to input the money ");
+                        }
+                        else
+                        {
+                            Console.WriteLine("");
+                        }
+
+                        if (Accdetails.Accountdeleted == "yes")
+                        {
+                            Console.WriteLine("Account Deleted");
+                        }
+                        else if(Accdetails.Accountdeleted == "no")
+                        {
+                            
+                        Console.WriteLine($"Account Name: {Halimat.AccountName}");
+                        Console.WriteLine($"BVN Number: {Halimat.BVN}");
+                        Console.WriteLine($"Phone Number: {Halimat.PhoneNumber}");
+                        Console.WriteLine($"Age: {Halimat.Age}");
+                        Console.WriteLine("Amount In Account: "+  Halimat.AccDetails[0].AmountInAccount.ToString("C",CultureInfo.CreateSpecificCulture("en-US")));
+                        Console.WriteLine($"Account Number: {Halimat.AccDetails[0].AccountNumber}");
+                        Console.WriteLine($"Account Type: {Halimat.AccDetails[0].AccountType}");
+                        }
+                        else 
+                        {
+                            Console.WriteLine("Wrong input");
+                        }
                     }
-                    Halimat.AccDetails.Add(Accdetails);
-                    Console.WriteLine($"Account Name: {Halimat.AccountName}");
-                    Console.WriteLine($"BVN Number: {Halimat.BVN}");
-                    Console.WriteLine($"Phone Number: {Halimat.PhoneNumber}");
-                    Console.WriteLine($"Age: {Halimat.Age}");
-                    Console.WriteLine("Amount In Account: "+  Halimat.AccDetails[0].AmountInAccount.ToString("C",CultureInfo.CreateSpecificCulture("en-US")));
-                    Console.WriteLine($"Account Number: {Halimat.AccDetails[0].AccountNumber}");
-                    Console.WriteLine($"Account Type: {Halimat.AccDetails[0].AccountType}");
-                    Console.WriteLine($"Is Account deleted: {Halimat.AccDetails[0].Accountdeleted}");
-                }
-        }        
+            }
+            catch (FormatException e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            
+        }
+               
     }
 }

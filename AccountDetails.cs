@@ -1,3 +1,4 @@
+using System;
 namespace ClassesandObject
 {
     public class AccountDetails
@@ -7,7 +8,7 @@ namespace ClassesandObject
         public long AccountNumber {get; set;}
         
         public long AmountInAccount {get; set;}
-        public bool Accountdeleted { get; set; }
+        public string Accountdeleted {get; set;}
         
     }
 }
